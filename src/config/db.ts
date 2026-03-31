@@ -5,7 +5,7 @@ import path from 'path';
 dotenv.config();
 
 const db = new Sequelize(process.env.DATABASE_URL!, {
-    models: [path.join(__dirname, '../models/**/*.ts')],
+    models: [path.join(__dirname, '../models/**/*')],
     logging: false
 });
 
