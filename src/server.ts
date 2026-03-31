@@ -19,14 +19,19 @@ connectDB();
 
 const server: Express = express();
 
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:4173',
-    process.env.FRONTEND_URL,
-].filter(Boolean);
-
 server.use(cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://localhost:4173',
+            process.env.FRONTEND_URL,
+        ];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
