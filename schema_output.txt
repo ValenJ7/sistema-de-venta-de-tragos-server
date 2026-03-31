@@ -1,0 +1,4 @@
+Usuarios: updatedAt, negocio_id, createdAt, id, rol_id, nombre, email, password_hash
+Cajas: id, estado, negocio_id, createdAt, updatedAt, nombre
+Roles: id, nombre
+Sesiones: id, caja_id, usuario_id, apertura_fecha, cierre_fecha, monto_inicial, monto_final_real, createdAt, updatedAt
