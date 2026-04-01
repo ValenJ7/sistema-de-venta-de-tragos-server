@@ -36,7 +36,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-server.options('*', cors(corsOptions));
+server.options('/{*path}', cors(corsOptions));
 server.use(cors(corsOptions));
 
 server.use(express.json({ limit: '10kb' }));
