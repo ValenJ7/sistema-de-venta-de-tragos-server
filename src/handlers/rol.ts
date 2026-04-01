@@ -1,10 +1,14 @@
 import { Request, Response } from 'express'
+import { Op } from 'sequelize'
 import Rol from '../models/Rol'
 import Usuario from '../models/Usuario'
+import { isSuperAdmin } from '../middleware/auth'
 
 export const getRoles = async (req: Request, res: Response) => {
     try {
+        const whereClause = isSuperAdmin(req) ? {} : { nombre: { [Op.notIn]: ['superadmin', 'admin'] } }
         const roles = await Rol.findAll({
+            where: whereClause,
             order: [['nombre', 'ASC']]
         })
         res.json({ data: roles })

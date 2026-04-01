@@ -7,6 +7,7 @@ import {
     deleteRol
 } from "../handlers/rol"
 import { handleInputErrors } from "../middleware"
+import { authorize } from "../middleware/auth"
 
 const router: Router = Router()
 
@@ -71,6 +72,7 @@ router.get('/', getRoles)
  *                              $ref: '#/components/schemas/Rol'
  */
 router.post('/',
+    authorize('superadmin'),
     body('nombre').notEmpty().withMessage('El nombre del rol no puede ir vacío'),
     handleInputErrors,
     createRol
@@ -107,6 +109,7 @@ router.post('/',
  *                  description: Rol no encontrado
  */
 router.put('/:id',
+    authorize('superadmin'),
     param('id').isInt().withMessage('ID no válido'),
     body('nombre').notEmpty().withMessage('El nombre no puede ir vacío'),
     handleInputErrors,
@@ -135,6 +138,7 @@ router.put('/:id',
  *                  description: No se puede eliminar por usuarios asignados
  */
 router.delete('/:id',
+    authorize('superadmin'),
     param('id').isInt().withMessage('ID no válido'),
     handleInputErrors,
     deleteRol

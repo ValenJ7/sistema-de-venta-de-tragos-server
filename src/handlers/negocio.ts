@@ -16,7 +16,11 @@ export const getNegocios = async (req: Request, res: Response) => {
     try {
         const negocios = await Negocio.findAll({
             include: [
-                { model: Usuario, attributes: ['id', 'nombre', 'email', 'activo'] },
+                {
+                    model: Usuario,
+                    attributes: ['id', 'nombre', 'email', 'activo'],
+                    include: [{ model: Rol, attributes: ['nombre'] }]
+                },
                 { model: Caja, attributes: ['id', 'nombre', 'estado'] }
             ]
         })
@@ -32,7 +36,11 @@ export const getNegocioById = async (req: Request, res: Response) => {
         const id = Number(req.params.id)
         const negocio = await Negocio.findByPk(id, {
             include: [
-                { model: Usuario, attributes: ['id', 'nombre', 'email', 'activo'] },
+                {
+                    model: Usuario,
+                    attributes: ['id', 'nombre', 'email', 'activo'],
+                    include: [{ model: Rol, attributes: ['nombre'] }]
+                },
                 { model: Caja, attributes: ['id', 'nombre', 'estado'] }
             ]
         })

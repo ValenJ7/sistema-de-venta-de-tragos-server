@@ -19,8 +19,8 @@ connectDB();
 
 const server: Express = express();
 
-server.use(cors({
-    origin: (origin, callback) => {
+const corsOptions = {
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
         const allowedOrigins = [
             'http://localhost:5173',
             'http://localhost:4173',
@@ -34,7 +34,10 @@ server.use(cors({
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+};
+
+server.options('*', cors(corsOptions));
+server.use(cors(corsOptions));
 
 server.use(express.json({ limit: '10kb' }));
 
