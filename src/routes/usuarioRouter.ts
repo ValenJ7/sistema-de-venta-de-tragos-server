@@ -136,7 +136,7 @@ router.post('/',
     body('email').isEmail().withMessage('Email no válido'),
     body('password_hash').notEmpty().withMessage('La contraseña no puede ir vacía'),
     body('rol_id').isInt().withMessage('El rol no es válido'),
-    body('negocio_id').isInt().withMessage('El negocio no es válido'),
+    body('negocio_id').optional().isInt().withMessage('El negocio no es válido'),
     handleInputErrors,
     createUsuario
 )
@@ -188,7 +188,7 @@ router.put('/:id',
     body('nombre').notEmpty().withMessage('El nombre no puede ir vacío'),
     body('email').isEmail().withMessage('Email no válido'),
     body('rol_id').isInt().withMessage('El rol no es válido'),
-    body('negocio_id').isInt().withMessage('El negocio no es válido'),
+    body('negocio_id').optional().isInt().withMessage('El negocio no es válido'),
     handleInputErrors,
     updateUsuario
 )
